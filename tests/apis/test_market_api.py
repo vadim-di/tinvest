@@ -28,21 +28,27 @@ def test_market_stocks_get(api_client, http_client):
 def test_market_bonds_get(api_client, http_client):
     api_client.market_bonds_get()
     http_client.request.assert_called_once_with(
-        'GET', '/market/bonds', response_model=MarketInstrumentListResponse,
+        'GET',
+        '/market/bonds',
+        response_model=MarketInstrumentListResponse,
     )
 
 
 def test_market_etfs_get(api_client, http_client):
     api_client.market_etfs_get()
     http_client.request.assert_called_once_with(
-        'GET', '/market/etfs', response_model=MarketInstrumentListResponse,
+        'GET',
+        '/market/etfs',
+        response_model=MarketInstrumentListResponse,
     )
 
 
 def test_market_currencies_get(api_client, http_client):
     api_client.market_currencies_get()
     http_client.request.assert_called_once_with(
-        'GET', '/market/currencies', response_model=MarketInstrumentListResponse,
+        'GET',
+        '/market/currencies',
+        response_model=MarketInstrumentListResponse,
     )
 
 

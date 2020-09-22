@@ -84,7 +84,10 @@ class SandboxApi(BaseApi):
             params.setdefault('brokerAccountId', broker_account_id)
         kwargs.setdefault('data', body.json())
         return self.client.request(
-            'POST', '/sandbox/currencies/balance', response_model=Empty, **kwargs,
+            'POST',
+            '/sandbox/currencies/balance',
+            response_model=Empty,
+            **kwargs,
         )
 
     def sandbox_positions_balance_post(
@@ -156,7 +159,10 @@ class OrdersApi(BaseApi):
             params.setdefault('brokerAccountId', broker_account_id)
         kwargs.setdefault('data', body.json())
         return self.client.request(
-            'POST', '/orders/limit-order', response_model=LimitOrderResponse, **kwargs,
+            'POST',
+            '/orders/limit-order',
+            response_model=LimitOrderResponse,
+            **kwargs,
         )
 
     def orders_market_order_post(
@@ -264,7 +270,10 @@ class MarketApi(BaseApi):
         params.setdefault('figi', figi)
         params.setdefault('depth', depth)
         return self.client.request(
-            'GET', '/market/orderbook', response_model=OrderbookResponse, **kwargs,
+            'GET',
+            '/market/orderbook',
+            response_model=OrderbookResponse,
+            **kwargs,
         )
 
     def market_candles_get(

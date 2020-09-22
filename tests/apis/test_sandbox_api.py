@@ -97,7 +97,10 @@ def test_sandbox_remove(api_client, http_client, broker_account_id):
 def test_sandbox_remove_without_broker_account_id(api_client, http_client):
     api_client.sandbox_remove_post()
     http_client.request.assert_called_once_with(
-        'POST', '/sandbox/remove', response_model=Empty, params={},
+        'POST',
+        '/sandbox/remove',
+        response_model=Empty,
+        params={},
     )
 
 
@@ -114,5 +117,8 @@ def test_sandbox_clear(api_client, http_client, broker_account_id):
 def test_sandbox_clear_without_broker_account_id(api_client, http_client):
     api_client.sandbox_clear_post()
     http_client.request.assert_called_once_with(
-        'POST', '/sandbox/clear', response_model=Empty, params={},
+        'POST',
+        '/sandbox/clear',
+        response_model=Empty,
+        params={},
     )

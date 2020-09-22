@@ -151,7 +151,6 @@ class Streaming:
                     break
                 elif msg.type == aiohttp.WSMsgType.ERROR:
                     break
-            await self._cleanup(api)
         except asyncio.CancelledError:
             await self._cleanup(api)
             raise
@@ -194,7 +193,10 @@ class CandleEvent(_BaseEvent):
     INTERVALS = tuple(c.value for c in CandleResolution)
 
     def subscribe(
-        self, figi: str, interval: CandleResolution, request_id: Optional[str] = None,
+        self,
+        figi: str,
+        interval: CandleResolution,
+        request_id: Optional[str] = None,
     ):
         return self._send(
             {
@@ -204,7 +206,10 @@ class CandleEvent(_BaseEvent):
         )
 
     def unsubscribe(
-        self, figi: str, interval: CandleResolution, request_id: Optional[str] = None,
+        self,
+        figi: str,
+        interval: CandleResolution,
+        request_id: Optional[str] = None,
     ):
         return self._send(
             {
@@ -214,7 +219,10 @@ class CandleEvent(_BaseEvent):
         )
 
     def _get_payload(
-        self, figi: str, interval: CandleResolution, request_id: Optional[str] = None,
+        self,
+        figi: str,
+        interval: CandleResolution,
+        request_id: Optional[str] = None,
     ):
         if interval not in self.INTERVALS:
             raise ValueError(f'{interval} not in {self.INTERVALS}')

@@ -15,7 +15,10 @@ def session(mocker):
 
 @pytest.fixture()
 def client(token, session):
-    return SyncClient(token, session=session,)
+    return SyncClient(
+        token,
+        session=session,
+    )
 
 
 def test_client_request(client, session, token):

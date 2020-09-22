@@ -22,7 +22,10 @@ async def session(mocker):
 
 @pytest.fixture()
 def client(token, session):
-    return AsyncClient(token, session=session,)
+    return AsyncClient(
+        token,
+        session=session,
+    )
 
 
 @pytest.mark.asyncio

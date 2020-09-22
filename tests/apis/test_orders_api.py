@@ -31,7 +31,10 @@ def test_orders_get(api_client, http_client, broker_account_id):
 def test_orders_get_without_broker_account_id(api_client, http_client):
     api_client.orders_get()
     http_client.request.assert_called_once_with(
-        'GET', '/orders', response_model=OrdersResponse, params={},
+        'GET',
+        '/orders',
+        response_model=OrdersResponse,
+        params={},
     )
 
 
@@ -102,5 +105,8 @@ def test_orders_cancel_post_without_broker_account_id(api_client, http_client):
     order_id = 'some_order_id'
     api_client.orders_cancel_post(order_id)
     http_client.request.assert_called_once_with(
-        'POST', '/orders/cancel', response_model=Empty, params={'orderId': order_id},
+        'POST',
+        '/orders/cancel',
+        response_model=Empty,
+        params={'orderId': order_id},
     )

@@ -20,9 +20,15 @@ def broker_account_id():
 
 @pytest.fixture()
 def error():
-    return Error(trackingId='tracking_id', payload={},)
+    return Error(
+        trackingId='tracking_id',
+        payload={},
+    )
 
 
 @pytest.fixture()
 def empty():
-    return Empty(trackingId='tracking_id', payload={},)
+    return Empty(
+        trackingId='tracking_id',
+        payload={},
+    )
