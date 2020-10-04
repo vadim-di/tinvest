@@ -8,6 +8,7 @@ python:
 install:
   - pip install poetry codecov
   - poetry install
+  - pip install typer
 
 script:
   - cp README.md docs/
