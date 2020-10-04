@@ -179,18 +179,17 @@ import tinvest
 
 TOKEN = "<TOKEN>"
 
-client = tinvest.AsyncClient(TOKEN)
-api = tinvest.PortfolioApi(client)
 
-
-async def request():
+async def main():
+    client = tinvest.AsyncClient(TOKEN)
+    api = tinvest.PortfolioApi(client)
     async with api.portfolio_get() as response:  # aiohttp.ClientResponse
         if response.status == 200:
             print(await response.parse_json())  # tinvest.PortfolioResponse
 
+    await client.close()
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(request())
+asyncio.run(main())
 ```
 
 ### Sandbox
