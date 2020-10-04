@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tinvest"
-version = "2.1.1"
+version = "2.2.0"
 description = "Tinkoff Invest"
 authors = ["Danil Akhtarov <daxartio@gmail.com>"]
 license = "MIT"
@@ -10,13 +10,14 @@ homepage = "https://pypi.org/project/tinvest"
 keywords = []
 
 [tool.poetry.scripts]
-tinvest = 'tinvest.cli.main:run'
+tinvest = 'tinvest.cli.app:app'
 
 [tool.poetry.dependencies]
 python = ">=3.7,<4.0"
 aiohttp = ">=3.6,<4.0"
 pydantic = ">=1.2,<2"
 requests = ">=2.22,<3.0"
+typer = {version = ">=0.3.2,<1", optional = true}
 
 [tool.poetry.dev-dependencies]
 asynctest = "*"
@@ -53,6 +54,9 @@ pytest-mock = "*"
 safety = "*"
 toml = "*"
 unify = "*"
+
+[tool.poetry.extras]
+cli = ["typer"]
 
 [build-system]
 requires = ["poetry>=0.12"]

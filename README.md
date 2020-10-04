@@ -43,13 +43,6 @@ pip install tinvest
 [Основной репозиторий с документацией](https://github.com/TinkoffCreditSystems/invest-openapi/) — в нем вы можете задать вопрос в Issues и получать информацию о релизах в Releases.
 Если возникают вопросы по данному SDK, нашёлся баг или есть предложения по улучшению, то можно задать его в Issues.
 
-Также можно выполнить команду в консоли.
-
-```
-tinvest issues
-tinvest issues openapi
-```
-
 ## Примеры
 
 Для работы с данным пакетом вам нужно изучить [OpenAPI Тинькофф Инвестиции](https://tinkoffcreditsystems.github.io/invest-openapi/swagger-ui/)

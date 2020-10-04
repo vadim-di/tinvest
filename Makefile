@@ -44,7 +44,7 @@ lint:
 
 format:
 	autoflake --recursive --in-place --remove-all-unused-imports $(CODE)
-	isort --apply --recursive $(CODE)
+	isort $(CODE)
 	black --skip-string-normalization --line-length=88 $(CODE)
 	unify --in-place --recursive $(CODE)
 
