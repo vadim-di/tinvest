@@ -53,6 +53,7 @@ pytest-deadfixtures = "*"
 pytest-mock = "*"
 safety = "*"
 toml = "*"
+typer-cli = "*"
 unify = "*"
 
 [tool.poetry.extras]

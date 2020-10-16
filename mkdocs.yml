@@ -9,6 +9,7 @@ copyright: 'Copyright &copy; 2020 Tinvest'
 
 nav:
   - 'Главная': README.md
+  - 'CLI': cli.md
   - 'tinvest':
     - apis.py: tinvest/apis.md
     - streaming.py: tinvest/streaming.md

@@ -11,6 +11,10 @@ import tinvest as ti
 
 openapi = typer.Typer()
 
+DATETIME_HELP = (
+    'Use one of [now, day, week, month, 6month, year] or any date-time format'
+)
+
 
 class OpenapiCtx(BaseModel):
     token: str = ''
@@ -55,7 +59,7 @@ def dt_to_str(dt: datetime) -> str:
 
 
 def show(*args):
-    print(*args, sep='\t')  # noqa:T001
+    typer.echo('\t'.join(str(item) for item in args))
 
 
 @openapi.callback()
@@ -282,7 +286,11 @@ def market_orderbook(ctx: typer.Context, figi: str, depth: int):
 
 @openapi.command()
 def market_candles(
-    ctx: typer.Context, figi: str, interval: ti.CandleResolution, from_: str, to: str
+    ctx: typer.Context,
+    figi: str,
+    interval: ti.CandleResolution,
+    from_: str = typer.Argument(..., metavar='FROM', help=DATETIME_HELP),
+    to: str = typer.Argument('now', help=DATETIME_HELP),
 ):
     payload = do_request(
         ctx,
@@ -339,7 +347,12 @@ def _show_instruments_payload(payload: ti.MarketInstrumentList):
 
 
 @openapi.command()
-def operations(ctx: typer.Context, from_: str, to: str, figi: Optional[str] = None):
+def operations(
+    ctx: typer.Context,
+    from_: str = typer.Argument(..., metavar='FROM', help=DATETIME_HELP),
+    to: str = typer.Argument('now', help=DATETIME_HELP),
+    figi: Optional[str] = None,
+):
     payload = do_request(
         ctx,
         ti.OperationsApi.operations_get,

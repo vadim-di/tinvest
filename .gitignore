@@ -134,3 +134,5 @@ dmypy.json
 venv
 .idea
 .vscode
+
+docs/cli.md

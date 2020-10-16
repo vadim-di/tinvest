@@ -49,12 +49,14 @@ format:
 	unify --in-place --recursive $(CODE)
 
 docs:
+	typer tinvest.cli.app utils docs --name tinvest > docs/cli.md
 	mkdocs build -s -v
 
 build:
 	poetry build
 
 clean:
+	rm -rf docs/cli.md || true
 	rm -rf site || true
 	rm -rf dist || true
 	rm -rf htmlcov || true
