@@ -352,6 +352,7 @@ def operations(
     from_: str = typer.Argument(..., metavar='FROM', help=DATETIME_HELP),
     to: str = typer.Argument('now', help=DATETIME_HELP),
     figi: Optional[str] = None,
+    broker_account_id: Optional[str] = None,
 ):
     payload = do_request(
         ctx,
@@ -359,6 +360,7 @@ def operations(
         convert_to_datetime(from_),
         convert_to_datetime(to),
         figi,
+        broker_account_id,
     )
     for operation in payload.operations:
         show(

@@ -326,6 +326,7 @@ class OperationsApi(BaseApi):
         from_: datetime_or_str,
         to: datetime_or_str,
         figi: Optional[str] = None,
+        broker_account_id: Optional[str] = None,
         **kwargs: Any
     ) -> Any:
         """GET /operations"""
@@ -335,6 +336,8 @@ class OperationsApi(BaseApi):
         params.setdefault('to', isoformat(to))
         if figi:
             params.setdefault('figi', figi)
+        if broker_account_id:
+            params.setdefault('brokerAccountId', broker_account_id)
         return self.client.request(
             'GET', '/operations', response_model=OperationsResponse, **kwargs
         )
