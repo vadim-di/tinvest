@@ -13,6 +13,7 @@ nav:
   - 'tinvest':
     - apis.py: tinvest/apis.md
     - streaming.py: tinvest/streaming.md
+  - 'CHANGELOG': CHANGELOG.md
 
 theme:
   name: material

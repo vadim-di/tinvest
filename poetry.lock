@@ -443,6 +443,17 @@ version = "0.18.2"
 
 [[package]]
 category = "dev"
+description = "Automatic Changelog generator using Jinja2 templates."
+name = "git-changelog"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "0.4.0"
+
+[package.dependencies]
+Jinja2 = ">=2.10,<3.0"
+
+[[package]]
+category = "dev"
 description = "Git Object Database"
 name = "gitdb"
 optional = false
@@ -1264,7 +1275,7 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 cli = ["typer"]
 
 [metadata]
-content-hash = "ecac7d67b95d4436088557711a466cd087cb42ee3c166b6065d040807fed60fd"
+content-hash = "818154a41e4ec959ee70cade36fb31c9be9718dc8b242da7ee8bca5fcbefacfe"
 python-versions = ">=3.7,<4.0"
 
 [metadata.files]
@@ -1470,6 +1481,10 @@ flake8-return = [
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
+]
+git-changelog = [
+    {file = "git-changelog-0.4.0.tar.gz", hash = "sha256:25c7b1c69dc1b2cf5e5c2e0010645d3506e94cbbc030e1d4c33917265845a24e"},
+    {file = "git_changelog-0.4.0-py3-none-any.whl", hash = "sha256:025691c6679fb69fb38ea030105d48aac65d002c44741894aa8cf9da6860c850"},
 ]
 gitdb = [
     {file = "gitdb-4.0.5-py3-none-any.whl", hash = "sha256:91f36bfb1ab7949b3b40e23736db18231bf7593edada2ba5c3a174a7b23657ac"},

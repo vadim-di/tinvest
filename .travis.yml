@@ -18,6 +18,7 @@ after_success:
 
 before_deploy:
   - cp README.md docs/
+  - cp CHANGELOG.md docs/
   - make build docs
 
 deploy:

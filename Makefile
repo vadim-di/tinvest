@@ -7,14 +7,16 @@ help:
 	@echo 'Usage: make [target] ...'
 	@echo ''
 	@echo '    make all'
+	@echo '    make build'
+	@echo '    make clean'
+	@echo '    make docs-changelog'
+	@echo '    make docs-serve'
+	@echo '    make docs'
 	@echo '    make format'
 	@echo '    make lint'
-	@echo '    make test'
-	@echo '    make test-report'
 	@echo '    make mut'
-	@echo '    make build'
-	@echo '    make docs'
-	@echo '    make clean'
+	@echo '    make test-report'
+	@echo '    make test'
 	@echo ''
 
 .PHONY: all
@@ -55,9 +57,13 @@ docs:
 	typer tinvest.cli.app utils docs --name tinvest > docs/cli.md
 	mkdocs build -s -v
 
-.PHONY: docs
+.PHONY: docs-serve
 docs-serve:
 	mkdocs serve
+
+.PHONY: docs-changelog
+docs-changelog:
+	git-changelog -o CHANGELOG.md  .
 
 .PHONY: build
 build:

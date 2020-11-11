@@ -55,6 +55,7 @@ safety = "*"
 toml = "*"
 typer-cli = "*"
 unify = "*"
+git-changelog = "^0.4.0"
 
 [tool.poetry.extras]
 cli = ["typer"]
