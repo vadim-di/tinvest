@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-CODE = tinvest tests
+CODE = tinvest tests examples
 TEST = pytest $(args) --verbosity=2 --showlocals --strict --log-level=DEBUG
 
 .PHONY: help
