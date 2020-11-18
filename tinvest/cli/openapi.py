@@ -213,8 +213,8 @@ def orders_cancel(
 
 
 @openapi.command()
-def portfolio(ctx: typer.Context):
-    payload = do_request(ctx, ti.PortfolioApi.portfolio_get)
+def portfolio(ctx: typer.Context, broker_account_id: Optional[str] = None):
+    payload = do_request(ctx, ti.PortfolioApi.portfolio_get, broker_account_id)
     for position in payload.positions:
         show(
             position.figi,
@@ -227,8 +227,10 @@ def portfolio(ctx: typer.Context):
 
 
 @openapi.command()
-def portfolio_currencies(ctx: typer.Context):
-    payload = do_request(ctx, ti.PortfolioApi.portfolio_currencies_get)
+def portfolio_currencies(ctx: typer.Context, broker_account_id: Optional[str] = None):
+    payload = do_request(
+        ctx, ti.PortfolioApi.portfolio_currencies_get, broker_account_id
+    )
     for currency in payload.currencies:
         show(
             currency.currency.value,

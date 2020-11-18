@@ -1,4 +1,4 @@
-__version__ = '2.3.1'
+__version__ = '2.3.2'
 __api_version__ = '20.4'  # pragma: no mutate
 
 from .apis import (
