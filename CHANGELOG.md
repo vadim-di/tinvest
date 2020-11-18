@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v2.3.3](https://github.com/daxartio/tinvest/releases/tag/v2.3.3) - 2020-11-18
+
+<small>[Compare with v2.3.2](https://github.com/daxartio/tinvest/compare/v2.3.2...v2.3.3)</small>
+
+### Fixed
+- Fix typing ([bf10ada](https://github.com/daxartio/tinvest/commit/bf10adae05347e8f15b07a673046517e85f243d4) by Danil Akhtarov).
+
+
 ## [v2.3.2](https://github.com/daxartio/tinvest/releases/tag/v2.3.2) - 2020-11-18
 
 <small>[Compare with v2.3.1](https://github.com/daxartio/tinvest/compare/v2.3.1...v2.3.2)</small>
