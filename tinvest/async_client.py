@@ -1,5 +1,13 @@
 from contextlib import asynccontextmanager
-from typing import Any, AsyncIterator, Generic, Type, TypeVar
+from typing import (
+    Any,
+    AsyncContextManager,
+    AsyncIterator,
+    Generic,
+    Optional,
+    Type,
+    TypeVar,
+)
 
 from aiohttp import ClientResponse, ClientSession
 from pydantic import BaseModel  # pylint:disable=no-name-in-module
@@ -26,7 +34,7 @@ class ResponseWrapper(Generic[T]):
     def __getattr__(self, name):
         return getattr(self._response, name)
 
-    async def parse_json(self, **kwargs: Any) -> Any:
+    async def parse_json(self, **kwargs: Any) -> T:
         return await self._parse_json(self._response_model, **kwargs)
 
     async def parse_error(self, **kwargs: Any) -> Error:
@@ -36,16 +44,26 @@ class ResponseWrapper(Generic[T]):
         return response_model.parse_obj(await self._response.json(**kwargs))
 
 
-class AsyncClient(BaseClient[ClientSession]):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if self._session is None:
+class AsyncClient(
+    BaseClient[  # pylint:disable=unsubscriptable-object
+        ClientSession, AsyncContextManager[ResponseWrapper]
+    ]
+):
+    def __init__(
+        self,
+        token: str,
+        *,
+        use_sandbox: bool = False,
+        session: Optional[ClientSession] = None
+    ):
+        super().__init__(token, use_sandbox=use_sandbox, session=session)
+        if not session:
             self._session = ClientSession()
 
     @asynccontextmanager
     async def request(
         self, method: str, path: str, response_model: Type[T], **kwargs: Any
-    ) -> AsyncIterator[ResponseWrapper]:
+    ) -> AsyncIterator[ResponseWrapper[T]]:
         url = self._base_url + path
         set_default_headers(kwargs, self._token)
 

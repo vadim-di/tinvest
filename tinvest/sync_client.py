@@ -1,7 +1,7 @@
-from typing import Any, Generic, Type, TypeVar
+from typing import Any, Generic, Optional, Type, TypeVar
 
 from pydantic import BaseModel  # pylint:disable=no-name-in-module
-from requests import Response, Session, session
+from requests import Response, Session
 
 from .base_client import BaseClient
 from .schemas import Error
@@ -32,11 +32,19 @@ class ResponseWrapper(Generic[T]):
         return response_model.parse_obj(self._response.json(**kwargs))
 
 
-class SyncClient(BaseClient[Session]):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if self._session is None:
-            self._session = session()
+class SyncClient(
+    BaseClient[Session, ResponseWrapper]  # pylint:disable=unsubscriptable-object
+):
+    def __init__(
+        self,
+        token: str,
+        *,
+        use_sandbox: bool = False,
+        session: Optional[Session] = None,
+    ):
+        super().__init__(token, use_sandbox=use_sandbox, session=session)
+        if not session:
+            self._session = Session()
 
     def request(
         self,
@@ -45,7 +53,7 @@ class SyncClient(BaseClient[Session]):
         response_model: Type[T],
         raise_for_status: bool = False,
         **kwargs: Any,
-    ) -> ResponseWrapper:
+    ) -> ResponseWrapper[T]:
         url = self._base_url + path
         set_default_headers(kwargs, self._token)
 

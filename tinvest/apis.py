@@ -1,5 +1,7 @@
+from abc import ABC
 from typing import Any, Generic, Optional, TypeVar
 
+from .base_client import BaseClient
 from .schemas import (
     CandleResolution,
     CandlesResponse,
@@ -34,10 +36,10 @@ __all__ = (
     'UserApi',
 )
 
-T = TypeVar('T')  # pragma: no mutate
+T = TypeVar('T', bound=BaseClient)  # pragma: no mutate
 
 
-class BaseApi(Generic[T]):
+class BaseApi(ABC, Generic[T]):
     def __init__(self, client: T) -> None:
         self._client = client
 
@@ -48,15 +50,15 @@ class BaseApi(Generic[T]):
 
 class OpenApi(Generic[T]):
     def __init__(self, client: T) -> None:
-        self.sandbox = SandboxApi(client)
-        self.orders = OrdersApi(client)
-        self.portfolio = PortfolioApi(client)
-        self.market = MarketApi(client)
-        self.operations = OperationsApi(client)
-        self.user = UserApi(client)
+        self.sandbox = SandboxApi[T](client)
+        self.orders = OrdersApi[T](client)
+        self.portfolio = PortfolioApi[T](client)
+        self.market = MarketApi[T](client)
+        self.operations = OperationsApi[T](client)
+        self.user = UserApi[T](client)
 
 
-class SandboxApi(BaseApi):
+class SandboxApi(BaseApi[T]):  # pylint:disable=unsubscriptable-object
     def sandbox_register_post(self, body: SandboxRegisterRequest, **kwargs: Any) -> Any:
         """
         POST /sandbox/register
@@ -133,7 +135,7 @@ class SandboxApi(BaseApi):
         )
 
 
-class OrdersApi(BaseApi):
+class OrdersApi(BaseApi[T]):  # pylint:disable=unsubscriptable-object
     def orders_get(self, broker_account_id: Optional[str] = None, **kwargs: Any) -> Any:
         """GET /orders"""
         kwargs.setdefault('params', {})
@@ -197,7 +199,7 @@ class OrdersApi(BaseApi):
         )
 
 
-class PortfolioApi(BaseApi):
+class PortfolioApi(BaseApi[T]):  # pylint:disable=unsubscriptable-object
     def portfolio_get(
         self, broker_account_id: Optional[str] = None, **kwargs: Any
     ) -> Any:
@@ -226,7 +228,7 @@ class PortfolioApi(BaseApi):
         )
 
 
-class MarketApi(BaseApi):
+class MarketApi(BaseApi[T]):  # pylint:disable=unsubscriptable-object
     def market_stocks_get(self, **kwargs: Any) -> Any:
         """GET /market/stocks"""
         return self.client.request(
@@ -320,7 +322,7 @@ class MarketApi(BaseApi):
         )
 
 
-class OperationsApi(BaseApi):
+class OperationsApi(BaseApi[T]):  # pylint:disable=unsubscriptable-object
     def operations_get(
         self,
         from_: datetime_or_str,
@@ -343,7 +345,7 @@ class OperationsApi(BaseApi):
         )
 
 
-class UserApi(BaseApi):
+class UserApi(BaseApi[T]):  # pylint:disable=unsubscriptable-object
     def accounts_get(self, **kwargs: Any) -> Any:
         """GET /user/accounts"""
         return self.client.request(
