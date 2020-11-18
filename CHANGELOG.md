@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v2.3.2](https://github.com/daxartio/tinvest/releases/tag/v2.3.2) - 2020-11-18
+
+<small>[Compare with v2.3.1](https://github.com/daxartio/tinvest/compare/v2.3.1...v2.3.2)</small>
+
+### Added
+- Add plotly pandas example ([c3adafe](https://github.com/daxartio/tinvest/commit/c3adafec52451c9d53c64ba0f1554b999409ef88) by Danil Akhtarov).
+- Add changelog ([792307f](https://github.com/daxartio/tinvest/commit/792307f36ee280431cabb4a78ce19fc9363552b1) by Danil Akhtarov).
+
+### Fixed
+- Fix cli portfolio broker_account_id option ([7265b8b](https://github.com/daxartio/tinvest/commit/7265b8b00378682e301b3c2794efc1ed9727477f) by Danil Akhtarov).
+
+
 ## [v2.3.1](https://github.com/daxartio/tinvest/releases/tag/v2.3.1) - 2020-11-11
 
 <small>[Compare with v2.3.0](https://github.com/daxartio/tinvest/compare/v2.3.0...v2.3.1)</small>
