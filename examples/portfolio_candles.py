@@ -5,6 +5,7 @@
 
 import os
 from datetime import datetime, timedelta
+from http import HTTPStatus
 from typing import Any, List, Tuple
 
 import pandas as pd
@@ -21,7 +22,7 @@ class HTTPError(Exception):
 
 
 def get_payload(response) -> Any:
-    if response.status_code != 200:
+    if response.status_code != HTTPStatus.OK:
         raise HTTPError(response.parse_error().json())
     return response.parse_json().payload
 
