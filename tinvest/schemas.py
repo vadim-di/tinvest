@@ -3,7 +3,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
-from pydantic import BaseModel  # pylint:disable=no-name-in-module
+from pydantic import BaseModel, Field
 
 __all__ = (
     'BrokerAccountType',
@@ -186,22 +186,16 @@ class SearchMarketInstrument(BaseModel):
     figi: str
     isin: Optional[str]
     lot: int
-    min_price_increment: Optional[float]
+    min_price_increment: Optional[float] = Field(alias='minPriceIncrement')
     name: str
     ticker: str
     type: InstrumentType
-
-    class Config:
-        fields = {'min_price_increment': {'alias': 'minPriceIncrement'}}
 
 
 class SearchMarketInstrumentResponse(BaseModel):
     payload: SearchMarketInstrument
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class MarketInstrument(BaseModel):
@@ -209,17 +203,11 @@ class MarketInstrument(BaseModel):
     figi: str
     isin: Optional[str]
     lot: int
-    min_price_increment: Optional[float]
+    min_price_increment: Optional[float] = Field(alias='minPriceIncrement')
     name: str
     ticker: str
     type: InstrumentType
-    min_quantity: Optional[int]
-
-    class Config:
-        fields = {
-            'min_price_increment': {'alias': 'minPriceIncrement'},
-            'min_quantity': {'alias': 'minQuantity'},
-        }
+    min_quantity: Optional[int] = Field(alias='minQuantity')
 
 
 class OrderResponse(BaseModel):
@@ -263,10 +251,7 @@ class OperationTrade(BaseModel):
     date: datetime
     price: float
     quantity: int
-    trade_id: str
-
-    class Config:
-        fields = {'trade_id': {'alias': 'tradeId'}}
+    trade_id: str = Field(alias='tradeId')
 
 
 class Operation(BaseModel):
@@ -275,23 +260,15 @@ class Operation(BaseModel):
     date: datetime
     figi: Optional[str]
     id: str
-    instrument_type: Optional[InstrumentType]
-    is_margin_call: bool
-    operation_type: Optional[OperationTypeWithCommission]
+    instrument_type: Optional[InstrumentType] = Field(alias='instrumentType')
+    is_margin_call: bool = Field(alias='isMarginCall')
+    operation_type: Optional[OperationTypeWithCommission] = Field(alias='operationType')
     payment: float
     price: Optional[float]
     quantity: Optional[int]
-    quantity_executed: Optional[int]
+    quantity_executed: Optional[int] = Field(alias='quantityExecuted')
     status: OperationStatus
     trades: Optional[List[OperationTrade]]
-
-    class Config:
-        fields = {
-            'instrument_type': {'alias': 'instrumentType'},
-            'is_margin_call': {'alias': 'isMarginCall'},
-            'operation_type': {'alias': 'operationType'},
-            'quantity_executed': {'alias': 'quantityExecuted'},
-        }
 
 
 class Operations(BaseModel):
@@ -299,88 +276,55 @@ class Operations(BaseModel):
 
 
 class Order(BaseModel):
-    executed_lots: int
+    executed_lots: int = Field(alias='executedLots')
     figi: str
     operation: OperationType
-    order_id: str
+    order_id: str = Field(alias='orderId')
     price: float
-    requested_lots: int
+    requested_lots: int = Field(alias='requestedLots')
     status: OrderStatus
-    type_: OrderType
-
-    class Config:
-        fields = {
-            'executed_lots': {'alias': 'executedLots'},
-            'order_id': {'alias': 'orderId'},
-            'requested_lots': {'alias': 'requestedLots'},
-            'type_': {'alias': 'type'},
-        }
+    type_: OrderType = Field(alias='type')
 
 
 class Orderbook(BaseModel):
     asks: List[OrderResponse]
     bids: List[OrderResponse]
-    close_price: Optional[float]
+    close_price: Optional[float] = Field(alias='closePrice')
     depth: int
     figi: str
-    last_price: Optional[float]
-    limit_down: Optional[float]
-    limit_up: Optional[float]
-    min_price_increment: float
-    face_value: Optional[float]
-    trade_status: TradeStatus
-
-    class Config:
-        fields = {
-            'close_price': {'alias': 'closePrice'},
-            'last_price': {'alias': 'lastPrice'},
-            'limit_down': {'alias': 'limitDown'},
-            'limit_up': {'alias': 'limitUp'},
-            'min_price_increment': {'alias': 'minPriceIncrement'},
-            'face_value': {'alias': 'faceValue'},
-            'trade_status': {'alias': 'tradeStatus'},
-        }
+    last_price: Optional[float] = Field(alias='lastPrice')
+    limit_down: Optional[float] = Field(alias='limitDown')
+    limit_up: Optional[float] = Field(alias='limitUp')
+    min_price_increment: float = Field(alias='minPriceIncrement')
+    face_value: Optional[float] = Field(alias='faceValue')
+    trade_status: TradeStatus = Field(alias='tradeStatus')
 
 
 class PlacedLimitOrder(BaseModel):
     commission: Optional[MoneyAmount]
-    executed_lots: int
+    executed_lots: int = Field(alias='executedLots')
     operation: OperationType
-    order_id: str
-    reject_reason: Optional[str]
+    order_id: str = Field(alias='orderId')
+    reject_reason: Optional[str] = Field(alias='rejectReason')
     message: Optional[str]
-    requested_lots: int
+    requested_lots: int = Field(alias='requestedLots')
     status: OrderStatus
-
-    class Config:
-        fields = {
-            'executed_lots': {'alias': 'executedLots'},
-            'order_id': {'alias': 'orderId'},
-            'reject_reason': {'alias': 'rejectReason'},
-            'requested_lots': {'alias': 'requestedLots'},
-        }
 
 
 class PortfolioPosition(BaseModel):
     name: str
-    average_position_price: Optional[MoneyAmount]
-    average_position_price_no_nkd: Optional[MoneyAmount]
+    average_position_price: Optional[MoneyAmount] = Field(alias='averagePositionPrice')
+    average_position_price_no_nkd: Optional[MoneyAmount] = Field(
+        alias='averagePositionPriceNoNkd'
+    )
     balance: float
     blocked: Optional[float]
-    expected_yield: Optional[MoneyAmount]
+    expected_yield: Optional[MoneyAmount] = Field(alias='expectedYield')
     figi: str
-    instrument_type: InstrumentType
+    instrument_type: InstrumentType = Field(alias='instrumentType')
     isin: Optional[str]
     lots: int
     ticker: Optional[str]
-
-    class Config:
-        fields = {
-            'average_position_price': {'alias': 'averagePositionPrice'},
-            'average_position_price_no_nkd': {'alias': 'averagePositionPriceNoNkd'},
-            'expected_yield': {'alias': 'expectedYield'},
-            'instrument_type': {'alias': 'instrumentType'},
-        }
 
 
 class Portfolio(BaseModel):
@@ -390,28 +334,19 @@ class Portfolio(BaseModel):
 class CandlesResponse(BaseModel):
     payload: Candles
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class Empty(BaseModel):
     payload: Dict[str, Any]
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class Error(BaseModel):
     payload: Dict[str, Any]
     status: str = 'Error'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class LimitOrderRequest(BaseModel):
@@ -423,28 +358,19 @@ class LimitOrderRequest(BaseModel):
 class LimitOrderResponse(BaseModel):
     payload: PlacedLimitOrder
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class MarketInstrumentListResponse(BaseModel):
     payload: MarketInstrumentList
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class MarketInstrumentResponse(BaseModel):
     payload: MarketInstrument
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class MarketOrderRequest(BaseModel):
@@ -453,76 +379,50 @@ class MarketOrderRequest(BaseModel):
 
 
 class PlacedMarketOrder(BaseModel):
-    order_id: str
+    order_id: str = Field(alias='orderId')
     operation: OperationType
     status: OrderStatus
-    reject_reason: Optional[str]
+    reject_reason: Optional[str] = Field(alias='rejectReason')
     message: Optional[str]
-    requested_lots: int
-    executed_lots: int
+    requested_lots: int = Field(alias='requestedLots')
+    executed_lots: int = Field(alias='executedLots')
     commission: Optional[MoneyAmount]
-
-    class Config:
-        fields = {
-            'executed_lots': {'alias': 'executedLots'},
-            'order_id': {'alias': 'orderId'},
-            'reject_reason': {'alias': 'rejectReason'},
-            'requested_lots': {'alias': 'requestedLots'},
-        }
 
 
 class MarketOrderResponse(BaseModel):
     payload: PlacedMarketOrder
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class OperationsResponse(BaseModel):
     payload: Operations
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class OrderbookResponse(BaseModel):
     payload: Orderbook
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class OrdersResponse(BaseModel):
     payload: List[Order]
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class PortfolioCurrenciesResponse(BaseModel):
     payload: Currencies
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class PortfolioResponse(BaseModel):
     payload: Portfolio
     status: str = 'Ok'
-    tracking_id: str
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
+    tracking_id: str = Field(alias='trackingId')
 
 
 class SandboxSetCurrencyBalanceRequest(BaseModel):
@@ -536,44 +436,26 @@ class SandboxSetPositionBalanceRequest(BaseModel):
 
 
 class SandboxAccount(BaseModel):
-    broker_account_type: BrokerAccountType
-    broker_account_id: str
-
-    class Config:
-        fields = {
-            'broker_account_type': {'alias': 'brokerAccountType'},
-            'broker_account_id': {'alias': 'brokerAccountId'},
-        }
+    broker_account_type: BrokerAccountType = Field(alias='brokerAccountType')
+    broker_account_id: str = Field(alias='brokerAccountId')
 
 
 class SandboxRegisterResponse(BaseModel):
-    tracking_id: str
+    tracking_id: str = Field(alias='trackingId')
     status: str
     payload: SandboxAccount
 
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
-
 
 class SandboxRegisterRequest(BaseModel):
-    broker_account_type: BrokerAccountType
+    broker_account_type: BrokerAccountType = Field(alias='brokerAccountType')
 
     class Config:
         allow_population_by_field_name = True
-        fields = {
-            'broker_account_type': {'alias': 'brokerAccountType'},
-        }
 
 
 class UserAccount(BaseModel):
-    broker_account_type: BrokerAccountType
-    broker_account_id: str
-
-    class Config:
-        fields = {
-            'broker_account_type': {'alias': 'brokerAccountType'},
-            'broker_account_id': {'alias': 'brokerAccountId'},
-        }
+    broker_account_type: BrokerAccountType = Field(alias='brokerAccountType')
+    broker_account_id: str = Field(alias='brokerAccountId')
 
 
 class UserAccounts(BaseModel):
@@ -581,12 +463,9 @@ class UserAccounts(BaseModel):
 
 
 class UserAccountsResponse(BaseModel):
-    tracking_id: str
+    tracking_id: str = Field(alias='trackingId')
     status: str
     payload: UserAccounts
-
-    class Config:
-        fields = {'tracking_id': {'alias': 'trackingId'}}
 
 
 class InstrumentInfoStreaming(BaseModel):

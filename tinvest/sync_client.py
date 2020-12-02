@@ -1,6 +1,6 @@
 from typing import Any, Generic, Optional, Type, TypeVar
 
-from pydantic import BaseModel  # pylint:disable=no-name-in-module
+from pydantic import BaseModel
 from requests import Response, Session
 
 from .base_client import BaseClient

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Generic, Optional, Type, TypeVar
 
-from pydantic import BaseModel  # pylint:disable=no-name-in-module
+from pydantic import BaseModel
 
 from .constants import PRODUCTION, SANDBOX
 

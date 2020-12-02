@@ -10,7 +10,7 @@ from typing import (
 )
 
 from aiohttp import ClientResponse, ClientSession
-from pydantic import BaseModel  # pylint:disable=no-name-in-module
+from pydantic import BaseModel
 
 from .base_client import BaseClient
 from .schemas import Error
